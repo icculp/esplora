@@ -1,0 +1,109 @@
+2-Config { log: StdErrLog { verbosity: Trace, quiet: false, show_level: true, timestamp: Millisecond, modules: [], writer: "stderr", color_choice: Never }, network_type: Bitcoin, db_path: "/data/electrs_bitcoin_db/mainnet/mainnet", daemon_dir: "/data/bitcoin", blocks_dir: "/data/bitcoin/blocks", daemon_rpc_addr: 127.0.0.1:8332, cookie: None, electrum_rpc_addr: 0.0.0.0:50001, http_addr: 127.0.0.1:3000, http_socket_file: Some("/var/electrs-rest.sock"), monitoring_addr: 0.0.0.0:4224, jsonrpc_import: false, light_mode: true, address_search: false, index_unspendables: false, cors: None, precache_scripts: None, utxos_limit: 500, electrum_txs_limit: 100000, electrum_banner: "Welcome to electrs-esplora 0.4.1", electrum_public_hosts: None, electrum_announce: false, tor_proxy: Some(127.0.0.1:9050) }
+2-2021-06-24T05:23:06.665+00:00 - DEBUG - Server listening on 0.0.0.0:4224
+2-2021-06-24T05:23:06.670+00:00 - WARN - failed to connect daemon at 127.0.0.1:8332: Connection refused (os error 111)
+2-2021-06-24T05:23:06.684+00:00 - DEBUG - Running accept thread
+2-2021-06-24T05:23:09.671+00:00 - INFO - NetworkInfo { version: 200100, subversion: "/Satoshi:0.20.1/", relayfee: 0.00001 }
+2-2021-06-24T05:23:09.672+00:00 - INFO - BlockchainInfo { chain: "main", blocks: 0, headers: 0, bestblockhash: "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f", pruned: false, verificationprogress: 0.0000000015497282, initialblockdownload: Some(true) }
+2-2021-06-24T05:23:09.673+00:00 - WARN - waiting for bitcoind sync to finish: 0/0 blocks, verification progress: 0.000%
+2-2021-06-24T05:23:14.674+00:00 - WARN - waiting for bitcoind sync to finish: 0/0 blocks, verification progress: 0.000%
+2-2021-06-24T05:23:19.674+00:00 - WARN - waiting for bitcoind sync to finish: 0/0 blocks, verification progress: 0.000%
+2-2021-06-24T05:23:24.675+00:00 - WARN - waiting for bitcoind sync to finish: 0/0 blocks, verification progress: 0.000%
+2-2021-06-24T05:23:29.676+00:00 - WARN - waiting for bitcoind sync to finish: 0/0 blocks, verification progress: 0.000%
+2-2021-06-24T05:23:34.677+00:00 - WARN - waiting for bitcoind sync to finish: 0/4000 blocks, verification progress: 0.000%
+2-2021-06-24T05:23:39.677+00:00 - WARN - waiting for bitcoind sync to finish: 0/20000 blocks, verification progress: 0.000%
+2-2021-06-24T05:23:44.678+00:00 - WARN - waiting for bitcoind sync to finish: 0/36000 blocks, verification progress: 0.000%
+2-2021-06-24T05:23:49.679+00:00 - WARN - waiting for bitcoind sync to finish: 0/54000 blocks, verification progress: 0.000%
+2-2021-06-24T05:23:54.679+00:00 - WARN - waiting for bitcoind sync to finish: 0/72000 blocks, verification progress: 0.000%
+2-2021-06-24T05:23:59.680+00:00 - WARN - waiting for bitcoind sync to finish: 0/88000 blocks, verification progress: 0.000%
+2-2021-06-24T05:24:04.681+00:00 - WARN - waiting for bitcoind sync to finish: 0/104000 blocks, verification progress: 0.000%
+2-2021-06-24T05:24:09.682+00:00 - WARN - waiting for bitcoind sync to finish: 0/122000 blocks, verification progress: 0.000%
+2-2021-06-24T05:24:14.683+00:00 - WARN - waiting for bitcoind sync to finish: 0/138000 blocks, verification progress: 0.000%
+2-2021-06-24T05:24:19.683+00:00 - WARN - waiting for bitcoind sync to finish: 0/156000 blocks, verification progress: 0.000%
+2-2021-06-24T05:24:24.684+00:00 - WARN - waiting for bitcoind sync to finish: 0/172000 blocks, verification progress: 0.000%
+2-2021-06-24T05:24:29.685+00:00 - WARN - waiting for bitcoind sync to finish: 0/190000 blocks, verification progress: 0.000%
+2-2021-06-24T05:24:34.686+00:00 - WARN - waiting for bitcoind sync to finish: 0/206000 blocks, verification progress: 0.000%
+2-2021-06-24T05:24:39.687+00:00 - WARN - waiting for bitcoind sync to finish: 0/224000 blocks, verification progress: 0.000%
+2-2021-06-24T05:24:44.687+00:00 - WARN - waiting for bitcoind sync to finish: 0/240000 blocks, verification progress: 0.000%
+2-2021-06-24T05:24:49.688+00:00 - WARN - waiting for bitcoind sync to finish: 0/258000 blocks, verification progress: 0.000%
+2-2021-06-24T05:24:54.689+00:00 - WARN - waiting for bitcoind sync to finish: 0/274000 blocks, verification progress: 0.000%
+2-2021-06-24T05:24:59.698+00:00 - WARN - waiting for bitcoind sync to finish: 0/292000 blocks, verification progress: 0.000%
+2-2021-06-24T05:25:04.698+00:00 - WARN - waiting for bitcoind sync to finish: 0/308000 blocks, verification progress: 0.000%
+2-2021-06-24T05:25:09.699+00:00 - WARN - waiting for bitcoind sync to finish: 0/324000 blocks, verification progress: 0.000%
+2-2021-06-24T05:25:14.700+00:00 - WARN - waiting for bitcoind sync to finish: 0/342000 blocks, verification progress: 0.000%
+2-2021-06-24T05:25:19.701+00:00 - WARN - waiting for bitcoind sync to finish: 0/358000 blocks, verification progress: 0.000%
+2-2021-06-24T05:25:24.701+00:00 - WARN - waiting for bitcoind sync to finish: 0/376000 blocks, verification progress: 0.000%
+2-2021-06-24T05:25:29.703+00:00 - WARN - waiting for bitcoind sync to finish: 0/392000 blocks, verification progress: 0.000%
+2-2021-06-24T05:25:34.703+00:00 - WARN - waiting for bitcoind sync to finish: 0/410000 blocks, verification progress: 0.000%
+2-2021-06-24T05:25:39.704+00:00 - WARN - waiting for bitcoind sync to finish: 0/426000 blocks, verification progress: 0.000%
+2-2021-06-24T05:25:44.705+00:00 - WARN - waiting for bitcoind sync to finish: 0/444000 blocks, verification progress: 0.000%
+2-2021-06-24T05:25:49.705+00:00 - WARN - waiting for bitcoind sync to finish: 0/460000 blocks, verification progress: 0.000%
+2-2021-06-24T05:25:54.706+00:00 - WARN - waiting for bitcoind sync to finish: 0/478000 blocks, verification progress: 0.000%
+2-2021-06-24T05:25:59.707+00:00 - WARN - waiting for bitcoind sync to finish: 0/494000 blocks, verification progress: 0.000%
+2-2021-06-24T05:26:04.708+00:00 - WARN - reconnecting to bitcoind: failed to read cookie from "/data/bitcoin/.cookie"
+2-2021-06-24T05:26:07.708+00:00 - WARN - failed to connect daemon at 127.0.0.1:8332: Connection refused (os error 111)
+2-2021-06-24T05:26:08.236+00:00 - ERROR - server failed: Error: Iterrupted by signal 15
+2-   0: <unknown>
+2-   1: <unknown>
+2-   2: <unknown>
+2-   3: <unknown>
+2-   4: <unknown>
+2-   5: <unknown>
+2-   6: <unknown>
+2-   7: <unknown>
+2-   8: <unknown>
+2-   9: __libc_start_main
+2-  10: <unknown>
+2-
+2-
+2-Config { log: StdErrLog { verbosity: Trace, quiet: false, show_level: true, timestamp: Millisecond, modules: [], writer: "stderr", color_choice: Never }, network_type: Bitcoin, db_path: "/data/electrs_bitcoin_db/mainnet/mainnet", daemon_dir: "/data/bitcoin", blocks_dir: "/data/bitcoin/blocks", daemon_rpc_addr: 127.0.0.1:8332, cookie: None, electrum_rpc_addr: 0.0.0.0:50001, http_addr: 127.0.0.1:3000, http_socket_file: Some("/var/electrs-rest.sock"), monitoring_addr: 0.0.0.0:4224, jsonrpc_import: false, light_mode: true, address_search: false, index_unspendables: false, cors: None, precache_scripts: None, utxos_limit: 500, electrum_txs_limit: 100000, electrum_banner: "Welcome to electrs-esplora 0.4.1", electrum_public_hosts: None, electrum_announce: false, tor_proxy: Some(127.0.0.1:9050) }
+2-2021-06-24T05:26:54.469+00:00 - DEBUG - Server listening on 0.0.0.0:4224
+2-2021-06-24T05:26:54.469+00:00 - WARN - failed to connect daemon at 127.0.0.1:8332: Connection refused (os error 111)
+2-2021-06-24T05:26:54.474+00:00 - DEBUG - Running accept thread
+2-2021-06-24T05:26:57.470+00:00 - INFO - NetworkInfo { version: 200100, subversion: "/Satoshi:0.20.1/", relayfee: 0.00001 }
+2-2021-06-24T05:26:57.471+00:00 - INFO - BlockchainInfo { chain: "main", blocks: 0, headers: 8000, bestblockhash: "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f", pruned: false, verificationprogress: 0.0000000015497263, initialblockdownload: Some(true) }
+2-2021-06-24T05:26:57.471+00:00 - WARN - waiting for bitcoind sync to finish: 0/8000 blocks, verification progress: 0.000%
+2-2021-06-24T05:27:02.472+00:00 - WARN - waiting for bitcoind sync to finish: 0/52000 blocks, verification progress: 0.000%
+2-2021-06-24T05:27:07.473+00:00 - WARN - waiting for bitcoind sync to finish: 0/94000 blocks, verification progress: 0.000%
+2-2021-06-24T05:27:12.474+00:00 - WARN - waiting for bitcoind sync to finish: 0/134000 blocks, verification progress: 0.000%
+2-2021-06-24T05:27:17.475+00:00 - WARN - waiting for bitcoind sync to finish: 0/176000 blocks, verification progress: 0.000%
+2-2021-06-24T05:27:22.476+00:00 - WARN - waiting for bitcoind sync to finish: 0/218000 blocks, verification progress: 0.000%
+2-2021-06-24T05:27:27.476+00:00 - WARN - waiting for bitcoind sync to finish: 0/262000 blocks, verification progress: 0.000%
+2-2021-06-24T05:27:32.477+00:00 - WARN - waiting for bitcoind sync to finish: 0/306000 blocks, verification progress: 0.000%
+2-2021-06-24T05:27:37.478+00:00 - WARN - waiting for bitcoind sync to finish: 0/346000 blocks, verification progress: 0.000%
+2-2021-06-24T05:27:42.478+00:00 - WARN - reconnecting to bitcoind: failed to read cookie from "/data/bitcoin/.cookie"
+2-2021-06-24T05:27:45.422+00:00 - ERROR - server failed: Error: Iterrupted by signal 15
+2-   0: <unknown>
+2-   1: <unknown>
+2-   2: <unknown>
+2-   3: <unknown>
+2-   4: <unknown>
+2-   5: <unknown>
+2-   6: <unknown>
+2-   7: <unknown>
+2-   8: __libc_start_main
+2-   9: <unknown>
+2-
+2-
+2-Config { log: StdErrLog { verbosity: Trace, quiet: false, show_level: true, timestamp: Millisecond, modules: [], writer: "stderr", color_choice: Never }, network_type: Bitcoin, db_path: "/data/electrs_bitcoin_db/mainnet/mainnet", daemon_dir: "/data/bitcoin", blocks_dir: "/data/bitcoin/blocks", daemon_rpc_addr: 127.0.0.1:8332, cookie: None, electrum_rpc_addr: 0.0.0.0:50001, http_addr: 127.0.0.1:3000, http_socket_file: Some("/var/electrs-rest.sock"), monitoring_addr: 0.0.0.0:4224, jsonrpc_import: false, light_mode: true, address_search: false, index_unspendables: false, cors: None, precache_scripts: None, utxos_limit: 500, electrum_txs_limit: 100000, electrum_banner: "Welcome to electrs-esplora 0.4.1", electrum_public_hosts: None, electrum_announce: false, tor_proxy: Some(127.0.0.1:9050) }
+2-2021-06-24T05:30:49.646+00:00 - DEBUG - Server listening on 0.0.0.0:4224
+2-2021-06-24T05:30:49.647+00:00 - WARN - failed to connect daemon at 127.0.0.1:8332: Connection refused (os error 111)
+2-2021-06-24T05:30:49.656+00:00 - DEBUG - Running accept thread
+2-2021-06-24T05:30:52.647+00:00 - INFO - NetworkInfo { version: 200100, subversion: "/Satoshi:0.20.1/", relayfee: 0.00001 }
+2-2021-06-24T05:30:52.648+00:00 - INFO - BlockchainInfo { chain: "main", blocks: 0, headers: 84000, bestblockhash: "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f", pruned: false, verificationprogress: 0.0000000015497246, initialblockdownload: Some(true) }
+2-2021-06-24T05:30:52.649+00:00 - WARN - waiting for bitcoind sync to finish: 0/84000 blocks, verification progress: 0.000%
+2-2021-06-24T05:30:57.650+00:00 - WARN - waiting for bitcoind sync to finish: 0/290000 blocks, verification progress: 0.000%
+2-2021-06-24T05:31:02.650+00:00 - WARN - waiting for bitcoind sync to finish: 0/482000 blocks, verification progress: 0.000%
+2-2021-06-24T05:31:07.652+00:00 - WARN - waiting for bitcoind sync to finish: 401/676000 blocks, verification progress: 0.000%
+2-2021-06-24T05:31:12.653+00:00 - WARN - waiting for bitcoind sync to finish: 2932/688648 blocks, verification progress: 0.000%
+2-2021-06-24T05:31:17.654+00:00 - WARN - waiting for bitcoind sync to finish: 7017/688648 blocks, verification progress: 0.001%
+2-2021-06-24T05:31:22.657+00:00 - WARN - waiting for bitcoind sync to finish: 11497/688648 blocks, verification progress: 0.002%
+2-2021-06-24T05:31:27.358+00:00 - ERROR - server failed: Error: Iterrupted by signal 15
+2-   0: <unknown>
+2-   1: <unknown>
+2-   2: <unknown>
+2-   3: <unknown>
+2-   4: <unknown>
+2-   5: __libc_start_main
+2-   6: <unknown>
+2-
+2-

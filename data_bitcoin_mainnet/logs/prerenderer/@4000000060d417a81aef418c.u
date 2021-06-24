@@ -1,0 +1,9 @@
+5-
+5-> esplora@0.1.0 prerender-server /srv/explorer/source
+5-> cd prerender-server && npm start "--cluster" "bitcoin-mainnet"
+5-
+5-
+5-> esplora-serverside-render@0.1.0 start /srv/explorer/source/prerender-server
+5-> ./start.sh "bitcoin-mainnet"
+5-
+5-HTTP server running on /var/prerender-http.sock

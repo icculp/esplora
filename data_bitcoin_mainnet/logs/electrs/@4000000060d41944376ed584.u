@@ -1,0 +1,17 @@
+2-Config { log: StdErrLog { verbosity: Trace, quiet: false, show_level: true, timestamp: Millisecond, modules: [], writer: "stderr", color_choice: Never }, network_type: Bitcoin, db_path: "/data/electrs_bitcoin_db/mainnet/mainnet", daemon_dir: "/data/bitcoin", blocks_dir: "/data/bitcoin/blocks", daemon_rpc_addr: 127.0.0.1:8332, cookie: None, electrum_rpc_addr: 0.0.0.0:50001, http_addr: 127.0.0.1:3000, http_socket_file: Some("/var/electrs-rest.sock"), monitoring_addr: 0.0.0.0:4224, jsonrpc_import: false, light_mode: true, address_search: false, index_unspendables: false, cors: None, precache_scripts: None, utxos_limit: 500, electrum_txs_limit: 100000, electrum_banner: "Welcome to electrs-esplora 0.4.1", electrum_public_hosts: None, electrum_announce: false, tor_proxy: Some(127.0.0.1:9050) }
+2-2021-06-24T05:33:09.145+00:00 - DEBUG - Server listening on 0.0.0.0:4224
+2-2021-06-24T05:33:09.145+00:00 - WARN - failed to connect daemon at 127.0.0.1:8332: Connection refused (os error 111)
+2-2021-06-24T05:33:09.146+00:00 - DEBUG - Running accept thread
+2-2021-06-24T05:33:12.147+00:00 - INFO - NetworkInfo { version: 200100, subversion: "/Satoshi:0.20.1/", relayfee: 0.00001 }
+2-2021-06-24T05:33:12.149+00:00 - INFO - BlockchainInfo { chain: "main", blocks: 0, headers: 12000, bestblockhash: "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f", pruned: false, verificationprogress: 0.0000000015497235, initialblockdownload: Some(true) }
+2-2021-06-24T05:33:12.151+00:00 - WARN - waiting for bitcoind sync to finish: 0/12000 blocks, verification progress: 0.000%
+2-2021-06-24T05:33:15.028+00:00 - ERROR - server failed: Error: Iterrupted by signal 15
+2-   0: <unknown>
+2-   1: <unknown>
+2-   2: <unknown>
+2-   3: <unknown>
+2-   4: <unknown>
+2-   5: __libc_start_main
+2-   6: <unknown>
+2-
+2-

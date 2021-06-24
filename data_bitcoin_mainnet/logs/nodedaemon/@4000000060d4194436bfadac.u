@@ -1,0 +1,94 @@
+4-2021-06-24T05:33:09Z Ignoring unknown configuration value main.enforcenodebloom
+4-2021-06-24T05:33:09Z Bitcoin Core version v0.20.1 (release build)
+4-2021-06-24T05:33:09Z InitParameterInteraction: parameter interaction: -listen=0 -> setting -upnp=0
+4-2021-06-24T05:33:09Z InitParameterInteraction: parameter interaction: -listen=0 -> setting -discover=0
+4-2021-06-24T05:33:09Z Assuming ancestors of block 0000000000000000000f2adce67e49b0b6bdeb9de8b7c3d7e93b21e7fc1e819d have valid signatures.
+4-2021-06-24T05:33:09Z Setting nMinimumChainWork=00000000000000000000000000000000000000000e1ab5ec9348e9f4b8eb8154
+4-2021-06-24T05:33:09Z Using the 'shani(1way,2way)' SHA256 implementation
+4-2021-06-24T05:33:09Z Using RdSeed as additional entropy source
+4-2021-06-24T05:33:09Z Using RdRand as an additional entropy source
+4-2021-06-24T05:33:09Z Default data directory /.bitcoin
+4-2021-06-24T05:33:09Z Using data directory /data/bitcoin
+4-2021-06-24T05:33:09Z Config file: /data/.bitcoin.conf
+4-2021-06-24T05:33:09Z Config file arg: [main] blocknotify="pkill -USR1 electrs"
+4-2021-06-24T05:33:09Z Config file arg: [main] disablewallet="1"
+4-2021-06-24T05:33:09Z Config file arg: [main] listen="0"
+4-2021-06-24T05:33:09Z Config file arg: [main] listenonion="1"
+4-2021-06-24T05:33:09Z Config file arg: [main] peerbloomfilters="0"
+4-2021-06-24T05:33:09Z Config file arg: [main] server="1"
+4-2021-06-24T05:33:09Z Command-line arg: conf="/data/.bitcoin.conf"
+4-2021-06-24T05:33:09Z Command-line arg: datadir="/data/bitcoin"
+4-2021-06-24T05:33:09Z Using at most 125 automatic connections (1048576 file descriptors available)
+4-2021-06-24T05:33:09Z Using 16 MiB out of 32/2 requested for signature cache, able to store 524288 elements
+4-2021-06-24T05:33:09Z Using 16 MiB out of 32/2 requested for script execution cache, able to store 524288 elements
+4-2021-06-24T05:33:09Z Script verification uses 1 additional threads
+4-2021-06-24T05:33:09Z Wallet disabled!
+4-2021-06-24T05:33:09Z libevent: getaddrinfo: address family for nodename not supported
+4-2021-06-24T05:33:09Z Binding RPC on address ::1 port 8332 failed.
+4-2021-06-24T05:33:09Z HTTP: creating work queue of depth 16
+4-2021-06-24T05:33:09Z No rpcpassword set - using random cookie authentication.
+4-2021-06-24T05:33:09Z Generated RPC authentication cookie /data/bitcoin/.cookie
+4-2021-06-24T05:33:09Z HTTP: starting 4 worker threads
+4-2021-06-24T05:33:09Z init message: Loading banlist...
+4-2021-06-24T05:33:09Z Using /16 prefix for IP bucketing
+4-2021-06-24T05:33:09Z Cache configuration:
+4-2021-06-24T05:33:09Z * Using 2.0 MiB for block index database
+4-2021-06-24T05:33:09Z * Using 8.0 MiB for chain state database
+4-2021-06-24T05:33:09Z * Using 440.0 MiB for in-memory UTXO set (plus up to 286.1 MiB of unused mempool space)
+4-2021-06-24T05:33:09Z init message: Loading block index...
+4-2021-06-24T05:33:09Z Opening LevelDB in /data/bitcoin/blocks/index
+4-2021-06-24T05:33:09Z scheduler thread start
+4-2021-06-24T05:33:09Z Opened LevelDB successfully
+4-2021-06-24T05:33:09Z Using obfuscation key for /data/bitcoin/blocks/index: 0000000000000000
+4-2021-06-24T05:33:09Z LoadBlockIndexDB: last block file = 0
+4-2021-06-24T05:33:09Z LoadBlockIndexDB: last block file info: CBlockFileInfo(blocks=0, size=0, heights=0...0, time=1970-01-01...1970-01-01)
+4-2021-06-24T05:33:09Z Checking all blk files are present...
+4-2021-06-24T05:33:09Z Initializing databases...
+4-2021-06-24T05:33:09Z Pre-allocating up to position 0x1000000 in blk00000.dat
+4-2021-06-24T05:33:09Z Opening LevelDB in /data/bitcoin/chainstate
+4-2021-06-24T05:33:09Z Opened LevelDB successfully
+4-2021-06-24T05:33:09Z Using obfuscation key for /data/bitcoin/chainstate: 60f3c2f9a42cad87
+4-2021-06-24T05:33:09Z init message: Rewinding blocks...
+4-2021-06-24T05:33:09Z  block index              23ms
+4-2021-06-24T05:33:09Z UpdateTip: new best=000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f height=0 version=0x00000001 log2_work=32.000022 tx=1 date='2009-01-03T18:15:05Z' progress=0.000000 cache=0.0MiB(0txo)
+4-2021-06-24T05:33:09Z block tree size = 1
+4-2021-06-24T05:33:09Z nBestHeight = 0
+4-2021-06-24T05:33:09Z init message: Loading P2P addresses...
+4-2021-06-24T05:33:09Z Loaded 0 addresses from peers.dat  0ms
+4-2021-06-24T05:33:09Z init message: Starting network threads...
+4-2021-06-24T05:33:09Z init message: Done loading
+4-2021-06-24T05:33:09Z Failed to open mempool file from disk. Continuing anyway.
+4-2021-06-24T05:33:09Z torcontrol thread start
+4-2021-06-24T05:33:09Z dnsseed thread start
+4-2021-06-24T05:33:09Z Loading addresses from DNS seed dnsseed.emzy.de
+4-2021-06-24T05:33:09Z net thread start
+4-2021-06-24T05:33:09Z addcon thread start
+4-2021-06-24T05:33:09Z opencon thread start
+4-2021-06-24T05:33:09Z Loading addresses from DNS seed seed.btc.petertodd.org
+4-2021-06-24T05:33:09Z msghand thread start
+4-2021-06-24T05:33:09Z Loading addresses from DNS seed seed.bitcoin.sipa.be
+4-2021-06-24T05:33:09Z Loading addresses from DNS seed seed.bitcoin.sprovoost.nl
+4-2021-06-24T05:33:09Z Loading addresses from DNS seed dnsseed.bitcoin.dashjr.org
+4-2021-06-24T05:33:09Z tor: Got service ID mjo2ra2upuq3ygw4, advertising service mjo2ra2upuq3ygw4.onion:8333
+4-2021-06-24T05:33:09Z AddLocal(mjo2ra2upuq3ygw4.onion:8333,4)
+4-2021-06-24T05:33:10Z New outbound peer connected: version: 70016, blocks=688648, peer=0 (full-relay)
+4-2021-06-24T05:33:10Z Synchronizing blockheaders, height: 2000 (~0.31%)
+4-2021-06-24T05:33:11Z Synchronizing blockheaders, height: 4000 (~0.61%)
+4-2021-06-24T05:33:11Z Synchronizing blockheaders, height: 6000 (~0.92%)
+4-2021-06-24T05:33:11Z Synchronizing blockheaders, height: 8000 (~1.22%)
+4-2021-06-24T05:33:11Z New outbound peer connected: version: 70015, blocks=688648, peer=1 (full-relay)
+4-2021-06-24T05:33:11Z Synchronizing blockheaders, height: 10000 (~1.53%)
+4-2021-06-24T05:33:12Z Synchronizing blockheaders, height: 12000 (~1.84%)
+4-2021-06-24T05:33:12Z Synchronizing blockheaders, height: 14000 (~2.15%)
+4-2021-06-24T05:33:12Z Synchronizing blockheaders, height: 16000 (~2.46%)
+4-2021-06-24T05:33:12Z Synchronizing blockheaders, height: 18000 (~2.77%)
+4-2021-06-24T05:33:13Z Synchronizing blockheaders, height: 20000 (~3.09%)
+4-2021-06-24T05:33:13Z New outbound peer connected: version: 70016, blocks=688648, peer=2 (full-relay)
+4-2021-06-24T05:33:13Z tor: Thread interrupt
+4-2021-06-24T05:33:13Z Shutdown: In progress...
+4-2021-06-24T05:33:13Z opencon thread exit
+4-2021-06-24T05:33:13Z RemoveLocal(mjo2ra2upuq3ygw4.onion:8333)
+4-2021-06-24T05:33:13Z addcon thread exit
+4-2021-06-24T05:33:13Z torcontrol thread exit
+4-2021-06-24T05:33:13Z net thread exit
+4-2021-06-24T05:33:13Z msghand thread exit
