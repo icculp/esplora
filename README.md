@@ -170,6 +170,24 @@ docker run -p 50001:50001 -p 8084:80 \
            bash -c "/srv/explorer/run.sh bitcoin-testnet explorer"
 ```
 
+## How to run the explorer for Bitcoin signet
+
+```
+docker run -p 50001:50001 -p 8084:80 \
+           --volume $PWD/data_bitcoin_signet:/data \
+           --rm -i -t esplora \
+           bash -c "/srv/explorer/run.sh bitcoin-signet explorer"
+```
+
+## How to run the explorer for Liquid testnet
+
+```
+docker run -p 50001:50001 -p 8096:80 \
+           --volume $PWD/data_liquid_testnet:/data \
+           --rm -i -t esplora \
+           bash -c "/srv/explorer/run.sh liquid-testnet explorer"
+```
+
 ## How to run the explorer for Liquid regtest
 
 ```
@@ -187,6 +205,12 @@ docker run -p 50001:50001 -p 8094:80 \
            --rm -i -t esplora \
            bash -c "/srv/explorer/run.sh bitcoin-regtest explorer"
 ```
+
+## Regtest options
+
+When run for Bitcoin regtest or Liquid regtest, the esplora container will
+create a default wallet and mine 100 blocks internally. You can disable this behavior
+by setting `NO_REGTEST_MINING=1`.
 
 ## Docker config options
 

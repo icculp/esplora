@@ -14,3 +14,5 @@ data_bitcoin_testnet
 data_bitcoin_regtest
 data_liquid_regtest
 www/libwally
+data_liquid_testnet
+data_bitcoin_signet

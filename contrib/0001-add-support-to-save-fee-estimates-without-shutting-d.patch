@@ -1,0 +1,205 @@
+From 9fc9638e54a3550f9842e0a5a8d5dce6551ed7ed Mon Sep 17 00:00:00 2001
+From: Lawrence Nahum <lawrence@greenaddress.it>
+Date: Sat, 19 Nov 2022 16:27:16 +0100
+Subject: [PATCH] add support to save fee estimates without shutting down the
+ node
+
+---
+ src/policy/fees.cpp                           | 16 ++++--
+ src/policy/fees.h                             |  3 ++
+ src/rpc/mempool.cpp                           | 29 ++++++++++
+ src/test/fuzz/rpc.cpp                         |  1 +
+ .../feature_fee_estimates_persist.py          | 54 +++++++++++++++++++
+ test/functional/test_runner.py                |  1 +
+ 6 files changed, 99 insertions(+), 5 deletions(-)
+ create mode 100755 test/functional/feature_fee_estimates_persist.py
+
+diff --git a/src/policy/fees.cpp b/src/policy/fees.cpp
+index 2b940be07..7edd5807f 100644
+--- a/src/policy/fees.cpp
++++ b/src/policy/fees.cpp
+@@ -903,11 +903,7 @@ CFeeRate CBlockPolicyEstimator::estimateSmartFee(int confTarget, FeeCalculation
+ 
+ void CBlockPolicyEstimator::Flush() {
+     FlushUnconfirmed();
+-
+-    AutoFile est_file{fsbridge::fopen(m_estimation_filepath, "wb")};
+-    if (est_file.IsNull() || !Write(est_file)) {
+-        LogPrintf("Failed to write fee estimates to %s. Continue anyway.\n", fs::PathToString(m_estimation_filepath));
+-    }
++    Write();
+ }
+ 
+ bool CBlockPolicyEstimator::Write(AutoFile& fileout) const
+@@ -935,6 +931,16 @@ bool CBlockPolicyEstimator::Write(AutoFile& fileout) const
+     return true;
+ }
+ 
++bool CBlockPolicyEstimator::Write() const
++{
++    AutoFile est_file{fsbridge::fopen(m_estimation_filepath, "wb")};
++    if (est_file.IsNull() || !Write(est_file)) {
++        LogPrintf("Failed to write fee estimates to %s. Continue anyway.\n", fs::PathToString(m_estimation_filepath));
++        return false;
++    }
++    return true;
++}
++
+ bool CBlockPolicyEstimator::Read(AutoFile& filein)
+ {
+     try {
+diff --git a/src/policy/fees.h b/src/policy/fees.h
+index e4628bf85..f4ac5c00e 100644
+--- a/src/policy/fees.h
++++ b/src/policy/fees.h
+@@ -223,6 +223,9 @@ public:
+     bool Write(AutoFile& fileout) const
+         EXCLUSIVE_LOCKS_REQUIRED(!m_cs_fee_estimator);
+ 
++    /** Write estimation data to the default file */
++    bool Write() const EXCLUSIVE_LOCKS_REQUIRED(!m_cs_fee_estimator);
++
+     /** Read estimation data from a file */
+     bool Read(AutoFile& filein)
+         EXCLUSIVE_LOCKS_REQUIRED(!m_cs_fee_estimator);
+diff --git a/src/rpc/mempool.cpp b/src/rpc/mempool.cpp
+index 5c1770704..20083a974 100644
+--- a/src/rpc/mempool.cpp
++++ b/src/rpc/mempool.cpp
+@@ -22,6 +22,9 @@
+ #include <util/moneystr.h>
+ #include <util/time.h>
+ 
++#include <policy/fees.h>
++
++
+ using kernel::DumpMempool;
+ 
+ using node::DEFAULT_MAX_RAW_TX_FEE_RATE;
+@@ -705,6 +708,31 @@ static RPCHelpMan getmempoolinfo()
+     };
+ }
+ 
++static RPCHelpMan savefeeestimates()
++{
++    return RPCHelpMan{"savefeeestimates",
++                "\nDumps the fee estimates to disk. It will fail until the previous dump is fully loaded.\n",
++                {},
++                RPCResult{RPCResult::Type::NONE, "", ""},
++                RPCExamples{
++                    HelpExampleCli("savefeeestimates", "")
++            + HelpExampleRpc("savefeeestimates", "")
++                },
++        [&](const RPCHelpMan& self, const JSONRPCRequest& request) -> UniValue
++{
++    static Mutex dump_mutex;
++    LOCK(dump_mutex);
++    CBlockPolicyEstimator& fee_estimator = EnsureAnyFeeEstimator(request.context);
++
++    if (!fee_estimator.Write()) {
++        throw JSONRPCError(RPC_MISC_ERROR, "Unable to dump fee estimates to disk");
++    }
++
++    return NullUniValue;
++},
++    };
++}
++
+ static RPCHelpMan savemempool()
+ {
+     return RPCHelpMan{"savemempool",
+@@ -898,6 +926,7 @@ void RegisterMempoolRPCCommands(CRPCTable& t)
+         {"blockchain", &getmempoolinfo},
+         {"blockchain", &getrawmempool},
+         {"blockchain", &savemempool},
++        {"blockchain", &savefeeestimates},
+         {"hidden", &submitpackage},
+     };
+     for (const auto& c : commands) {
+diff --git a/src/test/fuzz/rpc.cpp b/src/test/fuzz/rpc.cpp
+index 26913a41d..977ae63a9 100644
+--- a/src/test/fuzz/rpc.cpp
++++ b/src/test/fuzz/rpc.cpp
+@@ -80,6 +80,7 @@ const std::vector<std::string> RPC_COMMANDS_NOT_SAFE_FOR_FUZZING{
+     "importwallet", // avoid reading from disk
+     "loadwallet",   // avoid reading from disk
+     "prioritisetransaction", // avoid signed integer overflow in CTxMemPool::PrioritiseTransaction(uint256 const&, long const&) (https://github.com/bitcoin/bitcoin/issues/20626)
++    "savefeeestimates",      // disabled as a precautionary measure: may take a file path argument in the future
+     "savemempool",           // disabled as a precautionary measure: may take a file path argument in the future
+     "setban",                // avoid DNS lookups
+     "stop",                  // avoid shutdown state
+diff --git a/test/functional/feature_fee_estimates_persist.py b/test/functional/feature_fee_estimates_persist.py
+new file mode 100755
+index 000000000..c6d82345b
+--- /dev/null
++++ b/test/functional/feature_fee_estimates_persist.py
+@@ -0,0 +1,54 @@
++#!/usr/bin/env python3
++# Copyright (c) 2014-2021 The Bitcoin Core developers
++# Distributed under the MIT software license, see the accompanying
++# file COPYING or http://www.opensource.org/licenses/mit-license.php.
++"""Test fee estimates persistence.
++
++By default, bitcoind will dump fee estimates on shutdown and
++then reload it on startup.
++
++Test is as follows:
++
++  - start node0
++  - call the savefeeestimates RPC and verify the RPC succeeds and
++    that the file exists
++  - make the file read only and attempt to call the savefeeestimates RPC
++    with the expecation that it will fail
++  - move the read only file and shut down the node, verify the node writes
++    on shutdown a file that is identical to the one we saved via the RPC
++
++"""
++
++import filecmp
++import os
++
++from test_framework.test_framework import BitcoinTestFramework
++from test_framework.util import assert_raises_rpc_error
++
++
++class FeeEstimatesPersistTest(BitcoinTestFramework):
++    def set_test_params(self):
++        self.num_nodes = 1
++
++    def run_test(self):
++        fee_estimatesdat = os.path.join(self.nodes[0].datadir, self.chain, 'fee_estimates.dat')
++        self.log.debug('Verify the fee_estimates.dat file does not exists on start up')
++        assert not os.path.isfile(fee_estimatesdat)
++        self.nodes[0].savefeeestimates()
++        self.log.debug('Verify the fee_estimates.dat file exists after calling savefeeestimates RPC')
++        assert os.path.isfile(fee_estimatesdat)
++        self.log.debug("Prevent bitcoind from writing fee_estimates.dat to disk. Verify that `savefeeestimates` fails")
++        fee_estimatesdatold = fee_estimatesdat + '.old'
++        os.rename(fee_estimatesdat, fee_estimatesdatold)
++        os.mkdir(fee_estimatesdat)
++        assert_raises_rpc_error(-1, "Unable to dump fee estimates to disk", self.nodes[0].savefeeestimates)
++        os.rmdir(fee_estimatesdat)
++        self.stop_nodes()
++        self.log.debug("Verify that fee_estimates are written on shutdown")
++        assert os.path.isfile(fee_estimatesdat)
++        self.log.debug("Verify that the fee estimates from a shutdown are identical from the ones from savefeeestimates")
++        assert filecmp.cmp(fee_estimatesdat, fee_estimatesdatold)
++
++
++if __name__ == "__main__":
++    FeeEstimatesPersistTest().main()
+diff --git a/test/functional/test_runner.py b/test/functional/test_runner.py
+index d78c1c634..bf9dbe12a 100755
+--- a/test/functional/test_runner.py
++++ b/test/functional/test_runner.py
+@@ -136,6 +136,7 @@ BASE_SCRIPTS = [
+     # vv Tests less than 30s vv
+     'wallet_keypool_topup.py --legacy-wallet',
+     'wallet_keypool_topup.py --descriptors',
++    'feature_fee_estimates_persist.py',
+     'feature_fee_estimation.py',
+     'interface_zmq.py',
+     'rpc_invalid_address_message.py',
+-- 
+2.30.2
+

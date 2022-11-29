@@ -8,8 +8,12 @@ resource "google_compute_health_check" "daemon" {
   count = var.create_resources
 
   http_health_check {
-    port         = 80
-    request_path = var.name == "bitcoin-mainnet" ? "/api/blocks/tip/hash" : var.name == "bitcoin-testnet" ? "/testnet/api/blocks/tip/hash" : "/liquid/api/blocks/tip/hash"
+    port = 80
+    request_path = (
+      var.name == "bitcoin-mainnet" ? "/api/blocks/tip/hash"
+      : var.name == "bitcoin-testnet" ? "/testnet/api/blocks/tip/hash"
+      : var.name == "liquid-testnet" ? "/liquidtestnet/api/blocks/tip/hash"
+    : "/liquid/api/blocks/tip/hash")
   }
 }
 
@@ -46,6 +50,11 @@ resource "google_compute_region_instance_group_manager" "daemon" {
     name = "electrs"
     port = 50001
   }
+
+  named_port {
+    name = "http"
+    port = 80
+  }
 }
 
 ## Create instance template
@@ -71,7 +80,7 @@ resource "google_compute_instance_template" "daemon" {
     disk_type    = "pd-ssd"
     auto_delete  = true
     boot         = true
-    disk_size_gb = "20"
+    disk_size_gb = "100"
   }
 
   network_interface {
@@ -86,8 +95,13 @@ resource "google_compute_instance_template" "daemon" {
   }
 
   service_account {
-    email  = google_service_account.daemon[0].email
-    scopes = ["compute-rw", "storage-ro", "https://www.googleapis.com/auth/logging.write"]
+    email = google_service_account.daemon[0].email
+    scopes = [
+      "compute-rw",
+      "storage-ro",
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring.write",
+    ]
   }
 
   lifecycle {

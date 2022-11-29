@@ -6,6 +6,7 @@ The blockstream.info public APIs are available at:
 - Bitcoin: https://blockstream.info/api/
 - Bitcoin Testnet: https://blockstream.info/testnet/api/
 - Liquid: https://blockstream.info/liquid/api/
+- Liquid Testnet: https://blockstream.info/liquidtestnet/api/
 
 For example:
 ```bash
@@ -120,7 +121,7 @@ Returns a JSON array with up to 10 results.
 
 Returns information about a block.
 
-Available fields: `id`, `height`, `version`, `timestamp`, `mediantime`, `bits`, `nonce`, `merkle_root`, `tx_count`, `size`, `weight`, `previousblockhash` and `mediantime`.
+Available fields: `id`, `height`, `version`, `timestamp`, `mediantime`, `bits`, `nonce`, `merkle_root`, `tx_count`, `size`, `weight`, and `previousblockhash`.
 Elements-based chains have an additional `proof` field.
 See [block format](#block-format) for more details.
 
@@ -141,8 +142,6 @@ Available fields: `in_best_chain` (boolean, false for orphaned blocks), `next_be
 ### `GET /block/:hash/txs[/:start_index]`
 
 Returns a list of transactions in the block (up to 25 transactions beginning at `start_index`).
-
-Transactions returned here do not have the `status` field, since all the transactions share the same block and confirmation status.
 
 The response from this endpoint can be cached indefinitely.
 

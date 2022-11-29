@@ -1,7 +1,12 @@
 # Health checks
 resource "google_compute_http_health_check" "daemon" {
-  name         = "${var.name}-explorer-http-health-check"
-  request_path = var.name == "bitcoin-mainnet" ? "/api/blocks/tip/hash" : var.name == "bitcoin-testnet" ? "/testnet/api/blocks/tip/hash" : "/liquid/api/blocks/tip/hash"
+  name = "${var.name}-explorer-http-health-check"
+  request_path = (
+    var.name == "bitcoin-mainnet" ? "/api/blocks/tip/hash"
+    : var.name == "bitcoin-testnet" ? "/testnet/api/blocks/tip/hash"
+    : var.name == "liquid-testnet" ? "/liquidtestnet/api/blocks/tip/hash"
+    : "/liquid/api/blocks/tip/hash"
+  )
 
   timeout_sec        = 20
   check_interval_sec = 30
@@ -26,14 +31,15 @@ resource "google_compute_backend_service" "daemon" {
   name        = "${var.name}-explorer-backend-service"
   protocol    = "HTTP"
   port_name   = "http"
-  timeout_sec = 30
+  timeout_sec = 3600
   enable_cdn  = true
 
   dynamic "backend" {
     for_each = google_compute_region_instance_group_manager.daemon
     iterator = group
     content {
-      group = group.value.instance_group
+      group           = group.value.instance_group
+      max_utilization = 0.8
     }
   }
 
@@ -41,7 +47,8 @@ resource "google_compute_backend_service" "daemon" {
     for_each = google_compute_region_instance_group_manager.preemptible-daemon
     iterator = group
     content {
-      group = group.value.instance_group
+      group           = group.value.instance_group
+      max_utilization = 0.8
     }
   }
 
@@ -59,7 +66,8 @@ resource "google_compute_backend_service" "daemon-electrs" {
     for_each = google_compute_region_instance_group_manager.daemon
     iterator = group
     content {
-      group = group.value.instance_group
+      group           = group.value.instance_group
+      max_utilization = 0.8
     }
   }
 
@@ -67,7 +75,8 @@ resource "google_compute_backend_service" "daemon-electrs" {
     for_each = google_compute_region_instance_group_manager.preemptible-daemon
     iterator = group
     content {
-      group = group.value.instance_group
+      group           = group.value.instance_group
+      max_utilization = 0.8
     }
   }
 

@@ -1,6 +1,6 @@
 FROM blockstream/esplora-base:latest AS build
 
-FROM debian:buster@sha256:1092695e843ad975267131f27a2b523128c4e03d2d96574bbdd7cf949ed51475
+FROM debian:bullseye@sha256:4d6ab716de467aad58e91b1b720f0badd7478847ec7a18f66027d0f8a329a43c
 
 COPY --from=build /srv/explorer /srv/explorer
 COPY --from=build /srv/wally_wasm /srv/wally_wasm
@@ -28,20 +28,28 @@ RUN source /root/.nvm/nvm.sh \
     npm run dist -- bitcoin-mainnet \
  && DEST=/srv/explorer/static/bitcoin-testnet \
     npm run dist -- bitcoin-testnet \
+ && DEST=/srv/explorer/static/bitcoin-signet \
+    npm run dist -- bitcoin-signet \
  && DEST=/srv/explorer/static/bitcoin-regtest \
     npm run dist -- bitcoin-regtest \
  && DEST=/srv/explorer/static/liquid-mainnet \
     npm run dist -- liquid-mainnet \
+ && DEST=/srv/explorer/static/liquid-testnet \
+    npm run dist -- liquid-testnet \
  && DEST=/srv/explorer/static/liquid-regtest \
     npm run dist -- liquid-regtest \
  && DEST=/srv/explorer/static/bitcoin-mainnet-blockstream \
     npm run dist -- bitcoin-mainnet blockstream \
  && DEST=/srv/explorer/static/bitcoin-testnet-blockstream \
     npm run dist -- bitcoin-testnet blockstream \
+ && DEST=/srv/explorer/static/bitcoin-signet-blockstream \
+    npm run dist -- bitcoin-signet blockstream \
  && DEST=/srv/explorer/static/bitcoin-regtest-blockstream \
     npm run dist -- bitcoin-regtest blockstream \
  && DEST=/srv/explorer/static/liquid-mainnet-blockstream \
     npm run dist -- liquid-mainnet blockstream \
+ && DEST=/srv/explorer/static/liquid-testnet-blockstream \
+    npm run dist -- liquid-testnet blockstream \
  && DEST=/srv/explorer/static/liquid-regtest-blockstream \
     npm run dist -- liquid-regtest blockstream
 
